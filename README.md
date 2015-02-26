@@ -1,6 +1,6 @@
 # command
 
-[![Build Status](https://travis-ci.org/rakyll/command.png?branch=master)](https://travis-ci.org/rakyll/command)
+[![Build Status](https://travis-ci.org/odeke-em/command.png?branch=master)](https://travis-ci.org/odeke-em/command)
 
 command is a tiny package that helps you to add cli subcommands to your Go program with no effort, and prints a pretty guide if needed.
 
@@ -23,13 +23,13 @@ program <command> -h for subcommand help
 In order to start, go get this repository:
 
 ~~~ sh
-go get github.com/rakyll/command
+go get github.com/odeke-em/command
 ~~~
 
 This package allows you to use flags package as you used to do, and provides additional parsing for subcommands and subcommand flags.
 
 ~~~ go
-import "github.com/rakyll/command"
+import "github.com/odeke-em/command"
 
 // register any global flags
 var flagExecPath = flag.String("exec-path", "", "a custom path to executable")

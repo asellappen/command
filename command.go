@@ -44,7 +44,7 @@ var definedHelp *Cmd = nil
 // requirements.
 type Cmd interface {
 	Flags(*flag.FlagSet) *flag.FlagSet
-	Run(args []string)
+	Run(args []string, definedFlags map[string]*flag.Flag)
 }
 
 type cmdCont struct {
@@ -52,6 +52,7 @@ type cmdCont struct {
 	desc          string
 	command       Cmd
 	requiredFlags []string
+	definedFlags  map[string]*flag.Flag
 }
 
 // Registers a Cmd for the provided sub-command name. E.g. name is the
@@ -123,7 +124,7 @@ func Parse() {
 	}
 	if canCallHelp {
 		flag.Usage = func() {
-			(*helpCmd).Run(os.Args[2:])
+			(*helpCmd).Run(os.Args[2:], map[string]*flag.Flag{})
 		}
 	}
 
@@ -154,9 +155,13 @@ func Parse() {
 		for _, flagName := range cont.requiredFlags {
 			flagMap[flagName] = true
 		}
+
+		definedFlags := make(map[string]*flag.Flag)
 		fs.Visit(func(f *flag.Flag) {
+			definedFlags[f.Name] = f
 			delete(flagMap, f.Name)
 		})
+		cont.definedFlags = definedFlags
 		if len(flagMap) > 0 {
 			subcommandUsage(matchingCmd)
 			os.Exit(1)
@@ -175,7 +180,8 @@ func Run() {
 			subcommandUsage(matchingCmd)
 			return
 		}
-		matchingCmd.command.Run(args)
+		fmt.Println("matchingCmd", matchingCmd)
+		matchingCmd.command.Run(args, matchingCmd.definedFlags)
 	}
 }
 

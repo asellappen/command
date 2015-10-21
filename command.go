@@ -25,7 +25,7 @@ import (
 )
 
 var (
-    OutFileDesc = os.Stdout
+	OutFileDesc = os.Stdout
 )
 
 // A map of all of the registered sub-commands.

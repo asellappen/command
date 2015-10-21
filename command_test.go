@@ -156,7 +156,7 @@ func (cmd *testCmd1) Flags(fs *flag.FlagSet) *flag.FlagSet {
 }
 
 // Sets the run flag.
-func (cmd *testCmd1) Run(args []string) {
+func (cmd *testCmd1) Run(args []string, definedFlags map[string]*flag.Flag) {
 	cmd.run = true
 }
 
@@ -174,6 +174,6 @@ func (cmd *testCmd2) Flags(fs *flag.FlagSet) *flag.FlagSet {
 }
 
 // Sets the run flag.
-func (cmd *testCmd2) Run(args []string) {
+func (cmd *testCmd2) Run(args []string, definedFlags map[string]*flag.Flag) {
 	cmd.run = true
 }

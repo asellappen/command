@@ -184,7 +184,6 @@ func Run() {
 			subcommandUsage(matchingCmd)
 			return
 		}
-		fmt.Println("matchingCmd", matchingCmd)
 		matchingCmd.command.Run(args, matchingCmd.definedFlags)
 	}
 }
